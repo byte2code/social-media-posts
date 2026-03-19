@@ -23,8 +23,9 @@ class SocialMediaWorkflowTest {
 
             assertTrue(output.contains("Post created successfully."));
             assertTrue(output.contains("All the posts!"));
-            assertTrue(output.contains("0- Bipin First post"));
-            assertTrue(output.contains("1- Bipin Second post"));
+            assertTrue(output.contains("0- Bipin From DB"));
+            assertTrue(output.contains("1- Bipin First post"));
+            assertTrue(output.contains("2- Bipin Second post"));
             assertTrue(output.contains("Exiting social media app."));
         }
     }
@@ -40,12 +41,13 @@ class SocialMediaWorkflowTest {
             String output = ConsoleTestSupport.captureOutput(workflow::run);
 
             assertTrue(output.contains("Value cannot be blank. Please try again."));
-            assertTrue(output.contains("0- Bipin Hello"));
+            assertTrue(output.contains("0- Bipin From DB"));
+            assertTrue(output.contains("1- Bipin Hello"));
         }
     }
 
     @Test
-    void handlesInvalidMenuChoiceAndEmptyFeed() {
+    void handlesInvalidMenuChoiceAndShowsSeededFeed() {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
             SocialMediaWorkflow workflow = new SocialMediaWorkflow(
                     context,
@@ -55,7 +57,7 @@ class SocialMediaWorkflowTest {
             String output = ConsoleTestSupport.captureOutput(workflow::run);
 
             assertTrue(output.contains("Invalid choice."));
-            assertTrue(output.contains("No posts available."));
+            assertTrue(output.contains("0- Bipin From DB"));
         }
     }
 

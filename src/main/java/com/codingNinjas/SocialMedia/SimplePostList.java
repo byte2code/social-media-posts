@@ -10,6 +10,16 @@ public class SimplePostList implements PostList{
         this.postList = new ArrayList<Post>();
     }
 
+    public void init() {
+        Post post = new SimplePost();
+        post.setMessage("From DB");
+        postList.add(post);
+    }
+
+    public void destroy() {
+        System.out.println("Post list destroyed");
+    }
+
     @Override
     public ArrayList<Post> getAllPosts() {
         return this.postList;

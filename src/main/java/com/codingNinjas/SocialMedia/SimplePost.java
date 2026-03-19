@@ -4,6 +4,10 @@ public class SimplePost implements Post{
 
     private String message;
 
+    public void destroy() {
+        System.out.println("Post destroyed");
+    }
+
     @Override
     public void setMessage(String message) {
         this.message = message;

@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [v3.0.0] - 2026-03-20
+
+### Summary
+Third version of the Social Media Posts project that introduces Spring bean lifecycle callbacks.
+
+### Highlights
+- Added an initialization hook that seeds the post list with a default `From DB` post.
+- Added destroy callbacks for the singleton post-list bean and the prototype post bean.
+- Expanded tests to verify seeded post behavior and lifecycle helper methods.
+- Updated the README for the new lifecycle-based flow.
+
+### Notes
+This version extends the project from user-aware posting into a small Spring bean lifecycle demonstration.
+
 ## [v2.0.0] - 2026-03-20
 
 ### Summary

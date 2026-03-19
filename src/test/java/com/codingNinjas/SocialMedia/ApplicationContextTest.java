@@ -1,5 +1,6 @@
 package com.codingNinjas.SocialMedia;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -25,6 +26,8 @@ class ApplicationContextTest {
             assertTrue(firstPost != secondPost);
             assertTrue(firstList == secondList);
             assertTrue(user.getPostList() == firstList);
+            assertEquals(1, firstList.size());
+            assertEquals("From DB", firstList.getPost(0).getMessage());
         }
     }
 }
