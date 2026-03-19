@@ -7,4 +7,7 @@
     <!-- bean definitions here -->
     <bean id="simplePost" class="com.codingNinjas.SocialMedia.SimplePost" scope="prototype"/>
     <bean id="simplePostList" class="com.codingNinjas.SocialMedia.SimplePostList"/>
+    <bean id="simpleUser" class="com.codingNinjas.SocialMedia.SimpleUser">
+        <property name="postList" ref="simplePostList"/>
+    </bean>
 </beans>

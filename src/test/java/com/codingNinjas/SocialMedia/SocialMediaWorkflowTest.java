@@ -16,15 +16,15 @@ class SocialMediaWorkflowTest {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
             SocialMediaWorkflow workflow = new SocialMediaWorkflow(
                     context,
-                    scannerFor("1", "First post", "1", "Second post", "2", "3")
+                    scannerFor("Bipin", "1", "First post", "1", "Second post", "2", "3")
             );
 
             String output = ConsoleTestSupport.captureOutput(workflow::run);
 
             assertTrue(output.contains("Post created successfully."));
             assertTrue(output.contains("All the posts!"));
-            assertTrue(output.contains("0-First post"));
-            assertTrue(output.contains("1-Second post"));
+            assertTrue(output.contains("0- Bipin First post"));
+            assertTrue(output.contains("1- Bipin Second post"));
             assertTrue(output.contains("Exiting social media app."));
         }
     }
@@ -34,13 +34,13 @@ class SocialMediaWorkflowTest {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
             SocialMediaWorkflow workflow = new SocialMediaWorkflow(
                     context,
-                    scannerFor("1", "", "Hello", "2", "3")
+                    scannerFor("Bipin", "1", "", "Hello", "2", "3")
             );
 
             String output = ConsoleTestSupport.captureOutput(workflow::run);
 
             assertTrue(output.contains("Value cannot be blank. Please try again."));
-            assertTrue(output.contains("0-Hello"));
+            assertTrue(output.contains("0- Bipin Hello"));
         }
     }
 
@@ -49,13 +49,29 @@ class SocialMediaWorkflowTest {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
             SocialMediaWorkflow workflow = new SocialMediaWorkflow(
                     context,
-                    scannerFor("9", "2", "3")
+                    scannerFor("Bipin", "9", "2", "3")
             );
 
             String output = ConsoleTestSupport.captureOutput(workflow::run);
 
             assertTrue(output.contains("Invalid choice."));
             assertTrue(output.contains("No posts available."));
+        }
+    }
+
+    @Test
+    void retriesBlankUserNameBeforeShowingMenu() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
+            SocialMediaWorkflow workflow = new SocialMediaWorkflow(
+                    context,
+                    scannerFor("", "Bipin", "3")
+            );
+
+            String output = ConsoleTestSupport.captureOutput(workflow::run);
+
+            assertTrue(output.contains("Please enter your name!"));
+            assertTrue(output.contains("Value cannot be blank. Please try again."));
+            assertTrue(output.contains("Exiting social media app."));
         }
     }
 

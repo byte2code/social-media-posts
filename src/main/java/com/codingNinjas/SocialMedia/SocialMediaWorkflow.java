@@ -8,15 +8,18 @@ public class SocialMediaWorkflow {
 
     private final ApplicationContext context;
     private final Scanner scanner;
+    private final User user;
 
     public SocialMediaWorkflow(ApplicationContext context, Scanner scanner) {
         this.context = context;
         this.scanner = scanner;
+        this.user = context.getBean("simpleUser", User.class);
     }
 
     public void run() {
-        PostList postList = context.getBean("simplePostList", PostList.class);
+        PostList postList = user.getPostList();
         System.out.println("Social media app starts.....");
+        user.setUserName(promptForNonBlank("Please enter your name!"));
 
         while (true) {
             Integer menuItem = promptForMenuChoice(
@@ -52,7 +55,7 @@ public class SocialMediaWorkflow {
         }
 
         for (int i = 0; i < postList.size(); i++) {
-            System.out.println(i + "-" + postList.getPost(i).getMessage());
+            System.out.println(i + "- " + user.getUserName() + " " + postList.getPost(i).getMessage());
         }
     }
 

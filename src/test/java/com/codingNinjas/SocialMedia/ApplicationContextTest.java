@@ -15,13 +15,16 @@ class ApplicationContextTest {
             Post secondPost = context.getBean("simplePost", Post.class);
             PostList firstList = context.getBean("simplePostList", PostList.class);
             PostList secondList = context.getBean("simplePostList", PostList.class);
+            User user = context.getBean("simpleUser", User.class);
 
             assertNotNull(firstPost);
             assertNotNull(secondPost);
             assertNotNull(firstList);
             assertNotNull(secondList);
+            assertNotNull(user);
             assertTrue(firstPost != secondPost);
             assertTrue(firstList == secondList);
+            assertTrue(user.getPostList() == firstList);
         }
     }
 }
