@@ -1,0 +1,27 @@
+package com.codingNinjas.SocialMedia;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+class ApplicationContextTest {
+
+    @Test
+    void loadsPrototypePostAndSingletonPostListBeans() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml")) {
+            Post firstPost = context.getBean("simplePost", Post.class);
+            Post secondPost = context.getBean("simplePost", Post.class);
+            PostList firstList = context.getBean("simplePostList", PostList.class);
+            PostList secondList = context.getBean("simplePostList", PostList.class);
+
+            assertNotNull(firstPost);
+            assertNotNull(secondPost);
+            assertNotNull(firstList);
+            assertNotNull(secondList);
+            assertTrue(firstPost != secondPost);
+            assertTrue(firstList == secondList);
+        }
+    }
+}
